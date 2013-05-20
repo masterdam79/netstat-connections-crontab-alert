@@ -1,0 +1,2 @@
+#m	h	dom	mon	dow	command
+*/1	*	*	*	*	check=10; hostname=`hostname`; httpProcesses=`netstat -anpt | grep :80 | grep ESTABLISHED | wc -l`; echo $httpProcesses; if [ "$httpProcesses" -gt $check ] ; then echo "more than $check"; mail -s "more than $check (${httpProcesses}) concurrent HTTP connections on $hostname" user@domain.tld < /dev/null; else echo "less than $check"; fi; > /dev/null 2>&1
